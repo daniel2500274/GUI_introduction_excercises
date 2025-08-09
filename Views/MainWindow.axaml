@@ -3,18 +3,86 @@
         xmlns:vm="using:GUI_introduction_excercises.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="GUI_introduction_excercises.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="GUI_introduction_excercises">
+        Title="Ejercicios GUI - Avalonia"
+        Width="800" Height="600">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <TabControl>
+        <!-- Ejercicio 1: Hola Mundo Mejorado -->
+        <TabItem Header="Hola Mundo">
+            <StackPanel Margin="20" Spacing="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="HelloLabel" Text="Hola Mundo" FontSize="18" HorizontalAlignment="Center"/>
+                <Button x:Name="HelloButton" Content="¡Haz clic aquí!" Click="HelloButton_Click" 
+                        HorizontalAlignment="Center" Padding="10,5"/>
+            </StackPanel>
+        </TabItem>
 
+        <!-- Ejercicio 2: Conversor de Temperatura -->
+        <TabItem Header="Conversor Temperatura">
+            <StackPanel Margin="20" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Conversor de Temperatura" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+                
+                <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center">
+                    <TextBlock Text="Temperatura:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="TemperatureInput" Width="170" Watermark="Ingrese temperatura"/>
+                </StackPanel>
+
+                <ComboBox x:Name="ConversionType" Width="200" SelectedIndex="0" HorizontalAlignment="Center">
+                    <ComboBoxItem Content="Celsius a Fahrenheit"/>
+                    <ComboBoxItem Content="Fahrenheit a Celsius"/>
+                </ComboBox>
+
+                <Button x:Name="ConvertButton" Content="Convertir" Click="ConvertButton_Click" 
+                        HorizontalAlignment="Center" Padding="10,5"/>
+
+                <TextBlock x:Name="ConversionResult" Text="Resultado: " FontSize="14" 
+                           HorizontalAlignment="Center" FontWeight="Bold"/>
+                
+                <TextBlock x:Name="ConversionError" Text="" Foreground="Red" FontSize="12" 
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </TabItem>
+
+        <!-- Ejercicio 3: Calculadora -->
+        <TabItem Header="Calculadora">
+            <StackPanel Margin="20" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Calculadora Básica" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+                <Grid ColumnDefinitions="Auto,10,Auto" RowDefinitions="Auto,10,Auto,10,Auto,10,Auto">
+                    <!-- Primer número -->
+                    <TextBlock Text="Primer número:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="FirstNumber" Grid.Row="0" Grid.Column="2" Width="180" 
+                             Watermark="Ingrese primer número" TextChanged="NumberInput_TextChanged"/>
+
+                    <!-- Segundo número -->
+                    <TextBlock Text="Segundo número:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="SecondNumber" Grid.Row="2" Grid.Column="2" Width="180" 
+                             Watermark="Ingrese segundo número" TextChanged="NumberInput_TextChanged"/>
+
+                    <!-- Botones de operaciones -->
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" 
+                                Spacing="10" HorizontalAlignment="Center">
+                        <Button x:Name="AddButton" Content="+" Click="AddButton_Click" Width="50" Height="40"/>
+                        <Button x:Name="SubtractButton" Content="-" Click="SubtractButton_Click" Width="50" Height="40"/>
+                        <Button x:Name="MultiplyButton" Content="×" Click="MultiplyButton_Click" Width="50" Height="40"/>
+                        <Button x:Name="DivideButton" Content="÷" Click="DivideButton_Click" Width="50" Height="40"/>
+                    </StackPanel>
+
+                    <!-- Resultado -->
+                    <TextBlock x:Name="CalculatorResult" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" 
+                               Text="Resultado: " FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                </Grid>
+
+                <TextBlock x:Name="CalculatorError" Text="" Foreground="Red" FontSize="12" 
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
 </Window>
